@@ -38,6 +38,7 @@ body{
 .icone-bot{
     width: 26px;
     height: 26px;
+    cursor: pointer;
 }
 .input-mensagem{
     border-radius: 0%;
@@ -61,7 +62,7 @@ body{
     padding-top: 20px;
     overflow-y: scroll;
 }
-.entrar-sala,.sair-sala{
+.status{
     background-color:  #DCDCDC;
     margin: 3px 0;
 }
@@ -73,7 +74,7 @@ body{
     background-color: white;
     margin: 3px 0;
 }
-.entrar-sala,.sair-sala,.chat-privado,.chat-publico{
+.status,.chat-privado,.chat-publico{
     display: flex;
     flex-wrap: wrap;
     padding: 13px;
