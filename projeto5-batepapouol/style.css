@@ -45,6 +45,7 @@ body{
     border: 1px solid white;
     width: 250px;
     height: 40px;
+    outline: none;
 }
 .bot1{
     display:flex ;
@@ -137,6 +138,7 @@ h3{
     border-radius: 4px;
     margin-top: 90px;
     padding-left: 80px;
+    outline: none;
 }
 .botao-entrar{
    width: 110px;
