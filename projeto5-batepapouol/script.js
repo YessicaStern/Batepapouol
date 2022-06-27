@@ -9,28 +9,37 @@ corpo.innerHTML = "";
     let promessa= axios.post("https://mock-api.driven.com.br/api/v6/uol/participants",nomeObj);
     promessa.then(executar);
     promessa.catch(EscolherOutroNome);
+
+    document.querySelector(".botao-entrar").classList.add("esconder");
+    document.querySelector(".input-usuario").classList.add("esconder");
+    document.querySelector(".reloginho").classList.remove("esconder");
  }
 
  function EscolherOutroNome(resposta){
    if(resposta.response.status===400){
-   alert("Esse nome já está em uso por favor escolha outro");}
+   alert("Esse nome já está em uso por favor escolha outro");
+   window.location.reload();}
  }
 
  function executar(resposta){
     usuario=resposta.data;
-    document.querySelector(".tela-inicial").classList.add("esconder");
-    document.querySelector(".corpo").classList.remove("esconder");
-    document.querySelector(".topo").classList.remove("esconder");
-    document.querySelector(".bot").classList.remove("esconder");
+    setTimeout (renovarHTML,1000);
     setInterval(buscarMensagens,3000);
     setInterval(verificaOnline,4000);
+    
  }
+
+function renovarHTML(){
+   document.querySelector(".tela-inicial").classList.add("esconder");
+   document.querySelector(".corpo").classList.remove("esconder");
+   document.querySelector(".topo").classList.remove("esconder");
+   document.querySelector(".bot").classList.remove("esconder");
+}
 
 function verificaOnline(){
    let usuarioOnline ={ name: nome};
    axios.post("https://mock-api.driven.com.br/api/v6/uol/status", usuarioOnline);
 }
-
 
 function buscarMensagens(){
    let carregarmensagens = axios.get("https://mock-api.driven.com.br/api/v6/uol/messages");
@@ -57,8 +66,8 @@ function publicarMensagens(){
         corpo.innerHTML += mensagens;
       }
    }  
-   //const ultimaMensagem =document.querySelector(".mensagem:last-child");
-   //ultimaMensagem.scrollIntoView();
+   const ultimaMensagem =document.querySelector(".mensagem:last-child");
+   ultimaMensagem.scrollIntoView();
 }
 let upmensagem;
 let nickName="Todos";
@@ -80,8 +89,7 @@ function novaMensagem(el){
 }
 
 function alertar(erro){
- console.log("ERROOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO" + erro);
- alert("Deu erro ai "+ erro );
+ alert("Deu erro ai :( ");
  window.location.reload();
 }
 
@@ -117,20 +125,27 @@ function verUsuarios(){
 }
 let privado=document.querySelector(".privado");
 let publico=document.querySelector(".publico");
+let bot2=document.querySelector(".bot2");
 
 function selecionarChat(el){
    nickName = el.innerHTML;
    console.log(nickName);
-  /* document.querySelectorAll(".contatos.ok").add("esconder");
-   el.querySelector.remove("esconder");*/
 }
 function selecionarPrivacidade(){
    tipoMensagem="private_message";
    privado.classList.remove("esconder");
    publico.classList.add("esconder");
+   bot2.innerHTML= ` <div class="tipo-de-mensagem"><h3>enviando para ${nickName} (reservadamente)</h3></div>`;
 }
 function selecionarPublicidade(){
    tipoMensagem="message";
    privado.classList.add("esconder");
    publico.classList.remove("esconder");
+   bot2.innerHTML= ` <div class="tipo-de-mensagem"><h3>enviando para ${nickName}</h3></div>`;
 }
+
+document.addEventListener("keypress", function (el){
+   if(el.key === "Enter"){
+     const botaoEntrar= document.querySelector(".icone-bot")
+     botaoEntrar.click();
+}})

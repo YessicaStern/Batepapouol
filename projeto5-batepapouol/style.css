@@ -220,3 +220,8 @@ h5{
 .contatos{
     display: flex;
 }
+.reloginho{
+    margin-top:100px;
+    width: 80px;
+    height: 80px;
+}
